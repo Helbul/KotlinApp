@@ -2,4 +2,43 @@
     <string name="app_name">KotlinApp</string>
     <string name="hello_button">Button</string>
     <string name="hello_text">Hello World!</string>
+    <string name="movie_search">Поиск фильмов</string>
+    <string name="filter">Фильтр</string>
+
+    <string name="reload">Reload</string>
+
+    <!-- GENRES-->
+    <string name="anime">Аниме</string>
+    <string name="biographies">Биографии</string>
+    <string name="action">Боевики</string>
+    <string name="western">Вестерны</string>
+    <string name="military">Военные</string>
+    <string name="detective">Детективы</string>
+    <string name="childlike">Детские</string>
+    <string name="documentary">Документальные</string>
+    <string name="drama">Драмы</string>
+    <string name="games">Игры</string>
+    <string name="historical">Исторические</string>
+    <string name="comedy">Комедии</string>
+    <string name="concert">Концерты</string>
+    <string name="short_film">Короткометражки</string>
+    <string name="crime">Криминал</string>
+    <string name="melodrama">Мелодрамы</string>
+    <string name="music">Музыкальные</string>
+    <string name="cartoon">Мультфильмы</string>
+    <string name="musical">Мюзиклы</string>
+    <string name="news">Новсти</string>
+    <string name="adventures">Приключения</string>
+    <string name="tv">Реальное ТВ</string>
+    <string name="family">Семейные</string>
+    <string name="sportive">Спортивные</string>
+    <string name="talk_shows">Ток-шоу</string>
+    <string name="thriller">Триллеры</string>
+    <string name="horrors">Ужасы</string>
+    <string name="fantastic">Фантастика</string>
+    <string name="noir">Фильмы-нуар</string>
+    <string name="fantasy">Фэнтези</string>
+    <string name="ceremonies">Цеременоии</string>
+
+
 </resources>

@@ -1,13 +1,11 @@
 package com.example.kotlinapp
 
-object Repository {
-    val movies: ArrayList<Movie> = arrayListOf(
-        Movie("Гарри Поттер", "Фильм о мальчике который выжил."),
-        Movie("Матрица", "Все не то, чем кажется.")
-    )
+interface Repository {
+    fun getALL(): ArrayList<Movie>
 
-    fun addMovie (movie: Movie) {
-        movies.add(movie)
-    }
+    fun add(movie: Movie)
 
+    fun remove(movie: Movie)
+
+    fun remove(index: Int)
 }

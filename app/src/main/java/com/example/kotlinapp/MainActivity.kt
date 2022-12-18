@@ -6,40 +6,23 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.example.kotlinapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        val button: Button = findViewById(R.id.hello_button)
-        button.setOnClickListener(View.OnClickListener {
-            Toast.makeText(applicationContext, "Hello!", Toast.LENGTH_LONG).show()
-        })
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        val helloText: TextView = findViewById(R.id.hello_text)
-
-        testFor()
-
-        val message = testWhen(Genre.ACTION)
-        helloText.text = message
-    }
-
-
-    private fun testFor() {
-        val movies = Repository.movies
-        for (movie in movies) {
-            println(movie.toString())
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, MovieSearchFragment.newInstance())
+                .commitNow()
         }
-    }
 
-    private fun testWhen(genre: Genre): String {
-        val message = when (genre) {
-            Genre.ACTION -> "Крутяк!"
-            Genre.FICTION -> "Фантастика!"
-            Genre.COMEDY -> "Уморительно!"
-        }
-        return message
     }
-
 }
