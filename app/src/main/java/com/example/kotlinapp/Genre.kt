@@ -1,7 +1,7 @@
 package com.example.kotlinapp
 
 enum class Genre(val rusName: String) {
-    ACTION ("Боевик"),
-    FICTION ("Фантастика"),
-    COMEDY ("Комедия")
+    ANIME (R.string.anime.toString()),
+    ACTION (R.string.action.toString()),
+    ADVENTURES (R.string.adventures.toString()),
 }
