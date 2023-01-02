@@ -1,4 +1,4 @@
-package com.example.kotlinapp
+package com.example.kotlinapp.ui.moviesearch
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -11,20 +11,27 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
+import com.example.kotlinapp.AppState
+import com.example.kotlinapp.R
 import com.example.kotlinapp.databinding.FragmentMovieSearchBinding
+import com.example.kotlinapp.model.Movie
+import com.example.kotlinapp.ui.adapters.MovieSearchAdapter
+import com.example.kotlinapp.ui.details.MovieDetailsFragment
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_movie_search.*
 
 class MovieSearchFragment : Fragment() {
     private var _binding: FragmentMovieSearchBinding? = null
     private val binding
         get() = _binding!!
 
+    private lateinit var viewModel : MovieSearchViewModel
+    private var adapter : MovieSearchAdapter? = null
+
+
     companion object {
         fun newInstance() = MovieSearchFragment()
     }
-
-    private lateinit var viewModel: MovieSearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,13 +43,23 @@ class MovieSearchFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-
         _binding = null
+        adapter?.removeListener()
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.movieSearchRecyclerView.adapter = adapter
+        viewModel = ViewModelProvider(this).get(MovieSearchViewModel::class.java)
+
+        viewModel.getLiveData().observe(viewLifecycleOwner
+        ) { appState -> renderData(appState) }
+        viewModel.getMovie()
+    }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MovieSearchViewModel::class.java)
 
         val layoutFilter: ConstraintLayout = binding.layoutFilter
 
@@ -112,23 +129,29 @@ class MovieSearchFragment : Fragment() {
         ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
             Toast.makeText(requireContext(), "$rating", Toast.LENGTH_SHORT).show()
         }
-
-
-//        val observer = Observer<AppState> {
-//            renderData(it)
-//        }
-
-        viewModel.getLiveData().observe(viewLifecycleOwner
-        ) { appState -> renderData(appState) }
-        viewModel.getMovie()
     }
 
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
-                val movie = appState.movieData
                 binding.loadingLayout.visibility = View.GONE
-                setData(movie)
+                adapter = MovieSearchAdapter(object : OnItemViewClickListener {
+                    override fun onItemViewClick(movie: Movie) {
+                        val manager = activity?.supportFragmentManager
+                        manager?.let { manager ->
+                            val bundle = Bundle().apply {
+                                putParcelable(MovieDetailsFragment.BUNDLE_EXTRA, movie)
+                            }
+                            manager.beginTransaction()
+                                .add(R.id.container, MovieDetailsFragment.newInstance(bundle))
+                                .addToBackStack("")
+                                .commitAllowingStateLoss()
+                        }
+                    }
+                }).apply {
+                    setMovie(appState.movieData)
+                }
+                movieSearchRecyclerView.adapter = adapter
             }
 
             is AppState.Loading -> {
@@ -147,7 +170,7 @@ class MovieSearchFragment : Fragment() {
         }
     }
 
-    private fun setData (movie: Movie) {
-        binding.textCenter.text = movie.name
+    interface OnItemViewClickListener {
+        fun onItemViewClick(movie: Movie)
     }
 }

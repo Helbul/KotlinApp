@@ -1,4 +1,6 @@
-package com.example.kotlinapp
+package com.example.kotlinapp.model.repository
+
+import com.example.kotlinapp.model.Movie
 
 interface Repository {
     fun getALL(): ArrayList<Movie>
