@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RatingBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapp.R
 import com.example.kotlinapp.databinding.ItemMovieBinding
@@ -45,9 +44,11 @@ class MovieSearchAdapter(private var itemClickListener: MovieSearchFragment.OnIt
 
     inner class MovieSearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind (movie: Movie) {
-            itemView.findViewById<TextView>(R.id.item_name).text = movie.name
-            itemView.findViewById<RatingBar>(R.id.item_rating).rating = movie.rating
-            itemView.setOnClickListener { itemClickListener?.onItemViewClick(movie) } //почему "?"!!!!
+            with(itemView) {
+                findViewById<TextView>(R.id.item_name).text = movie.name
+                findViewById<RatingBar>(R.id.item_rating).rating = movie.rating
+                setOnClickListener { itemClickListener?.onItemViewClick(movie) }
+            }
         }
     }
 }
