@@ -17,6 +17,7 @@ import com.example.kotlinapp.databinding.FragmentMovieSearchBinding
 import com.example.kotlinapp.model.Movie
 import com.example.kotlinapp.ui.adapters.MovieSearchAdapter
 import com.example.kotlinapp.ui.details.MovieDetailsFragment
+import com.example.kotlinapp.ui.showSnackbar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_movie_search.*
 
@@ -83,18 +84,15 @@ class MovieSearchFragment : Fragment() {
 
         binding.chipAnime
             .setOnClickListener {
-                Toast.makeText(requireContext(), R.string.anime, Toast.LENGTH_SHORT)
-                    .show()
+                binding.root.showSnackbar(R.string.anime)
             }
         binding.chipAction
             .setOnClickListener {
-                Toast.makeText(requireContext(), R.string.action, Toast.LENGTH_SHORT)
-                    .show()
+                binding.root.showSnackbar(R.string.action)
             }
         binding.chipAdventures
             .setOnClickListener {
-                Toast.makeText(requireContext(), R.string.adventures, Toast.LENGTH_SHORT)
-                    .show()
+                binding.root.showSnackbar(R.string.adventures)
             }
         //TO DO
 
@@ -126,7 +124,7 @@ class MovieSearchFragment : Fragment() {
 
 
         val ratingBar = binding.ratingBar
-        ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+        ratingBar.setOnRatingBarChangeListener { _, rating, _ ->
             Toast.makeText(requireContext(), "$rating", Toast.LENGTH_SHORT).show()
         }
     }
