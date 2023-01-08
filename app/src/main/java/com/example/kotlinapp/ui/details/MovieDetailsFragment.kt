@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.kotlinapp.databinding.FragmentMovieDetailsBinding
 import com.example.kotlinapp.model.Movie
+import com.example.kotlinapp.model.dto.Films
 
 class MovieDetailsFragment : Fragment () {
     private var _binding: FragmentMovieDetailsBinding? = null
@@ -23,7 +24,7 @@ class MovieDetailsFragment : Fragment () {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getParcelable<Movie>(BUNDLE_EXTRA)?.let {
+        arguments?.getParcelable<Films>(BUNDLE_EXTRA)?.let {
             renderData(it)
         }
     }
@@ -34,13 +35,13 @@ class MovieDetailsFragment : Fragment () {
 
     }
 
-    private fun renderData(movie: Movie) {
+    private fun renderData(movie: Films) {
         with(binding) {
-            name.text = movie.name
-            rating.rating = movie.rating
-            genre.text = movie.genre.rusName
-            year.text = movie.year.toString()
-            description.text = movie.description
+            name.text = movie.nameRu
+            rating.rating = movie.rating?.toFloatOrNull() ?: 0.0F
+            genre.text = movie.genres[0].genre// переписать потом
+            year.text = movie.year
+            //description.text = movie.
         }
     }
 
