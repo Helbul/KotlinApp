@@ -14,7 +14,7 @@ import androidx.core.view.isVisible
 import com.example.kotlinapp.AppState
 import com.example.kotlinapp.R
 import com.example.kotlinapp.databinding.FragmentMovieSearchBinding
-import com.example.kotlinapp.model.Movie
+import com.example.kotlinapp.model.dto.Films
 import com.example.kotlinapp.ui.adapters.MovieSearchAdapter
 import com.example.kotlinapp.ui.details.MovieDetailsFragment
 import com.example.kotlinapp.ui.showSnackbar
@@ -134,7 +134,7 @@ class MovieSearchFragment : Fragment() {
             is AppState.Success -> {
                 binding.loadingLayout.visibility = View.GONE
                 adapter = MovieSearchAdapter(object : OnItemViewClickListener {
-                    override fun onItemViewClick(movie: Movie) {
+                    override fun onItemViewClick(movie: Films) {
                         val manager = activity?.supportFragmentManager
                         manager?.let { manager ->
                             val bundle = Bundle().apply {
@@ -169,6 +169,6 @@ class MovieSearchFragment : Fragment() {
     }
 
     interface OnItemViewClickListener {
-        fun onItemViewClick(movie: Movie)
+        fun onItemViewClick(movie: Films)
     }
 }

@@ -1,5 +1,6 @@
 package com.example.kotlinapp.ui.moviesearch
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.kotlinapp.AppState
@@ -9,6 +10,8 @@ import java.lang.Thread.sleep
 class MovieSearchViewModel(
     private val liveData: MutableLiveData<AppState> = MutableLiveData()
 ) : ViewModel() {
+//
+    private val TAG = "TAG - MovieSearchViewModel"
 
     fun getLiveData() = liveData
 
@@ -17,9 +20,13 @@ class MovieSearchViewModel(
     private fun getDataFromLocalSource() {
         liveData.value = AppState.Loading
         Thread {
-            sleep(2000)
             liveData.postValue(
-                AppState.Success(InMemoryMovieRepository.getALL())
+                InMemoryMovieRepository.getALL()?.let {
+                    AppState.Success(it)
+                }
+//                    ?: run {
+//                   AppState.Error...
+//                }
             )
         }.start()
     }
