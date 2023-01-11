@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinapp.databinding.FragmentMovieDetailsBinding
 import com.example.kotlinapp.model.Movie
 import com.example.kotlinapp.model.dto.Films
+import com.example.kotlinapp.ui.moviesearch.MovieSearchViewModel
 
 class MovieDetailsFragment : Fragment () {
     private var _binding: FragmentMovieDetailsBinding? = null
     private val binding get() = _binding!!
+    private lateinit var viewModel : MovieDetailsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,9 +27,16 @@ class MovieDetailsFragment : Fragment () {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(MovieDetailsViewModel::class.java)
         arguments?.getParcelable<Films>(BUNDLE_EXTRA)?.let {
-            renderData(it)
+            viewModel.setLiveDataMovie(it)
         }
+        viewModel.getLiveDataMovie().observe(viewLifecycleOwner){
+            movie -> renderData(movie)
+        }
+//        arguments?.getParcelable<Films>(BUNDLE_EXTRA)?.let {
+//            renderData(it)
+//        }
     }
 
     override fun onDestroyView() {
