@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
+import androidx.lifecycle.get
 import com.example.kotlinapp.AppState
 import com.example.kotlinapp.R
 import com.example.kotlinapp.databinding.FragmentMovieSearchBinding
@@ -20,6 +21,8 @@ import com.example.kotlinapp.ui.details.MovieDetailsFragment
 import com.example.kotlinapp.ui.showSnackbar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_movie_search.*
+
+
 
 class MovieSearchFragment : Fragment() {
     private var _binding: FragmentMovieSearchBinding? = null
@@ -48,6 +51,11 @@ class MovieSearchFragment : Fragment() {
         adapter?.removeListener()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.onDestroy()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.movieSearchRecyclerView.adapter = adapter
@@ -56,6 +64,10 @@ class MovieSearchFragment : Fragment() {
         viewModel.getLiveData().observe(viewLifecycleOwner
         ) { appState -> renderData(appState) }
         viewModel.getMovie()
+
+        viewModel.getLiveMessage().observe(viewLifecycleOwner){
+            message -> view.showSnackbar(message)
+        }
     }
 
 
