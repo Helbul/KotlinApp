@@ -53,7 +53,6 @@ class MovieSearchFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.onDestroy()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,13 +60,10 @@ class MovieSearchFragment : Fragment() {
         binding.movieSearchRecyclerView.adapter = adapter
         viewModel = ViewModelProvider(this).get(MovieSearchViewModel::class.java)
 
-        viewModel.getLiveData().observe(viewLifecycleOwner
+        viewModel.liveData.observe(viewLifecycleOwner
         ) { appState -> renderData(appState) }
-        viewModel.getMovie()
 
-        viewModel.getLiveMessage().observe(viewLifecycleOwner){
-            message -> view.showSnackbar(message)
-        }
+        viewModel.getMovie()
     }
 
 
