@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
 import com.example.kotlinapp.R
 import com.example.kotlinapp.databinding.ItemMovieBinding
 import com.example.kotlinapp.model.dto.Films
@@ -52,6 +54,7 @@ class MovieSearchAdapter(private var itemClickListener: MovieSearchFragment.OnIt
                 } ?: run {
                     findViewById<RatingBar>(R.id.item_rating).rating = 0.0F
                 }
+                findViewById<ImageView>(R.id.item_poster).load(movie.posterUrlPreview)
                 setOnClickListener { itemClickListener?.onItemViewClick(movie) }
             }
         }

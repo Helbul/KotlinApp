@@ -13,7 +13,7 @@ import javax.net.ssl.HttpsURLConnection
 
 object MoviesLoader {
     fun loadMoviesTop(): MoviesDTO? {
-        val uri = URL("https://kinopoiskapiunofficial.tech/api/v2.2/films/top")
+        val uri = URL("https://kinopoiskapiunofficial.tech/api/yt")
         lateinit var urlConnection: HttpsURLConnection
 
         return try {

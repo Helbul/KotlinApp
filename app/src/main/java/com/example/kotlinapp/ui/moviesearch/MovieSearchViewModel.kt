@@ -1,105 +1,63 @@
 package com.example.kotlinapp.ui.moviesearch
 
-import android.app.Application
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import androidx.lifecycle.AndroidViewModel
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.kotlinapp.AppState
-import com.example.kotlinapp.model.MoviesLoaderService
-import com.example.kotlinapp.model.dto.Films
-import com.example.kotlinapp.model.repository.InMemoryMovieRepository
+import com.example.kotlinapp.model.dto.MoviesDTO
+import com.example.kotlinapp.model.repository.RemoteDataSource
+import com.example.kotlinapp.model.repository.Repository
+import com.example.kotlinapp.model.repository.RepositoryImpl
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-const val MOVIE_INTENT_FILTER = "MOVIE_INTENT_FILTER"
-const val MOVIE_RESPONSE_SUCCESS_EXTRA = "MOVIE_RESPONSE_SUCCESS_EXTRA"
-const val MOVIES_TOP_EXTRA = "MOVIES_TOP_EXTRA"
-const val MOVIE_URL_MALFORMED_EXTRA = "MOVIE_URL_MALFORMED_EXTRA"
-const val MOVIE_REQUEST_ERROR_EXTRA = "MOVIE_REQUEST_ERROR_EXTRA"
-const val MOVIE_REQUEST_ERROR_MESSAGE_EXTRA = "MOVIE_REQUEST_ERROR_MESSAGE_EXTRA"
-const val MOVIE_RESPONSE_EMPTY_EXTRA = "MOVIE_RESPONSE_EMPTY_EXTRA"
-const val MOVIE_DATA_EMPTY_EXTRA = "MOVIE_DATA_EMPTY_EXTRA"
-const val MOVIE_INTENT_EMPTY_EXTRA = "MOVIE_INTENT_EMPTY_EXTRA"
-const val MOVIE_LOAD_RESULT_EXTRA = "MOVIE_LOAD_RESULT_EXTRA"
+private const val SERVER_ERROR = "Ошибка сервера"
+private const val REQUEST_ERROR = "Ошибка запроса на сервер"
+private const val CORRUPTED_DATA = "Неполные данные"
+
 
 class MovieSearchViewModel(
-    application: Application
-) : AndroidViewModel(application) {
+    val liveData: MutableLiveData<AppState> = MutableLiveData(),
+    private val repositoryImpl: Repository = RepositoryImpl (RemoteDataSource())
+) : ViewModel() {
 
-    private val liveData: MutableLiveData<AppState> = MutableLiveData()
-    private val liveMessage: MutableLiveData<String> = MutableLiveData()
+    fun getMovie() = getMovieFromRemoteSource()
 
-    fun getLiveData() = liveData
+    private fun getMovieFromRemoteSource(){
 
-    fun getLiveMessage() = liveMessage
-
-    //fun getMovie() = getDataFromLocalSource()
-
-    private fun getDataFromLocalSource() {
         liveData.value = AppState.Loading
-        Thread {
+        repositoryImpl.getMoviesTop(callback)
+    }
+
+    private val callback = object : Callback<MoviesDTO> {
+        override fun onResponse(call: Call<MoviesDTO>, response: Response<MoviesDTO>) {
+            val serverResponse: MoviesDTO? = response.body()
             liveData.postValue(
-                InMemoryMovieRepository.getALL()?.let {
-                    AppState.Success(it)
-
+                if (response.isSuccessful && serverResponse != null) {
+                    checkResponse(serverResponse)
+                } else {
+                    AppState.Error((Throwable(SERVER_ERROR)))
                 }
-//                    ?: run {
-//                   AppState.Error...
-//                }
             )
-        }.start()
+        }
+
+        override fun onFailure(call: Call<MoviesDTO>, t: Throwable) {
+            liveData.postValue(AppState.Error(Throwable(t.message ?:
+            REQUEST_ERROR)))
+        }
     }
 
-
-    fun getMovie() = getDataFromService()
-
-    private val loadResultsReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(Context: Context, intent: Intent) {
-            when (intent.getStringExtra(MOVIE_LOAD_RESULT_EXTRA)) {
-                MOVIE_INTENT_EMPTY_EXTRA -> liveMessage.postValue(MOVIE_INTENT_EMPTY_EXTRA)
-                MOVIE_DATA_EMPTY_EXTRA -> liveMessage.postValue(MOVIE_DATA_EMPTY_EXTRA)
-                MOVIE_RESPONSE_EMPTY_EXTRA -> liveMessage.postValue(MOVIE_RESPONSE_EMPTY_EXTRA)
-                MOVIE_REQUEST_ERROR_EXTRA -> liveMessage.postValue(MOVIE_REQUEST_ERROR_EXTRA)
-                MOVIE_REQUEST_ERROR_MESSAGE_EXTRA -> liveMessage.postValue(
-                    MOVIE_REQUEST_ERROR_MESSAGE_EXTRA)
-                MOVIE_URL_MALFORMED_EXTRA -> liveMessage.postValue(MOVIE_URL_MALFORMED_EXTRA)
-                MOVIE_RESPONSE_SUCCESS_EXTRA -> {
-                    val movies: ArrayList<Films>? = intent.getParcelableArrayListExtra(MOVIES_TOP_EXTRA)
-                    movies?.let {
-                        liveData.postValue(AppState.Success(it))
-                    }
-                }
-                else -> liveMessage.postValue("Error")
+    private fun checkResponse(serverResponse: MoviesDTO): AppState {
+        val movies = serverResponse.films
+        for (movie in movies) {
+            if (movie.filmId == null ||
+                    movie.nameRu == null ||
+                    movie.rating == null ||
+                    movie.year == null) {// может еще какие проверки добавить
+               return AppState.Error((Throwable(CORRUPTED_DATA)))
             }
-
         }
-
-    }
-    private fun getDataFromService() {
-        liveData.value = AppState.Loading
-
-        //может перенсти?
-        getApplication<Application>().applicationContext?.let {
-            LocalBroadcastManager.getInstance(it)
-                .registerReceiver(loadResultsReceiver,
-                    IntentFilter(MOVIE_INTENT_FILTER)
-                )
-        }
-
-        getApplication<Application>().applicationContext?.let {
-            it.startService(Intent(it, MoviesLoaderService::class.java))
-        //если для старта сервиса нужны будут параметры, добавить их в интент
-        }
-
-
-    }
-
-    fun onDestroy() {
-        getApplication<Application>().applicationContext?.let {
-            LocalBroadcastManager.getInstance(it).unregisterReceiver(loadResultsReceiver)
-        }
+        return AppState.Success(movies)
     }
 }
