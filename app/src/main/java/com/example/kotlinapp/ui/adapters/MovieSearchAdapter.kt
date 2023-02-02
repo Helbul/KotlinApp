@@ -11,16 +11,17 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.example.kotlinapp.R
 import com.example.kotlinapp.databinding.ItemMovieBinding
+import com.example.kotlinapp.model.Movie
 import com.example.kotlinapp.model.dto.Films
 import com.example.kotlinapp.ui.moviesearch.MovieSearchFragment
 
-class MovieSearchAdapter(private var itemClickListener: MovieSearchFragment.OnItemViewClickListener?)
+class MovieSearchAdapter(private var itemClickListener: OnItemViewClickListener?)
     : RecyclerView.Adapter<MovieSearchAdapter.MovieSearchViewHolder>(){
-        private var movieData: List<Films> = listOf()
+        private var movieData: List<Movie> = listOf()
         private lateinit var binding: ItemMovieBinding
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setMovie(data: ArrayList<Films>) {
+    fun setMovie(data: List<Movie>) {
         movieData = data
         notifyDataSetChanged()
     }
@@ -45,7 +46,7 @@ class MovieSearchAdapter(private var itemClickListener: MovieSearchFragment.OnIt
     }
 
     inner class MovieSearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind (movie: Films) {
+        fun bind (movie: Movie) {
             with(itemView) {
                 findViewById<TextView>(R.id.item_name).text = movie.nameRu
                 val ratingFloat = movie.rating?.toFloatOrNull()
