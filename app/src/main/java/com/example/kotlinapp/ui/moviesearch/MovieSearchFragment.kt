@@ -11,12 +11,14 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
-import androidx.lifecycle.get
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapp.AppState
 import com.example.kotlinapp.R
 import com.example.kotlinapp.databinding.FragmentMovieSearchBinding
-import com.example.kotlinapp.model.dto.Films
+import com.example.kotlinapp.model.Movie
 import com.example.kotlinapp.ui.adapters.MovieSearchAdapter
+import com.example.kotlinapp.ui.adapters.OnItemViewClickListener
 import com.example.kotlinapp.ui.details.MovieDetailsFragment
 import com.example.kotlinapp.ui.showSnackbar
 import com.google.android.material.snackbar.Snackbar
@@ -30,8 +32,8 @@ class MovieSearchFragment : Fragment() {
         get() = _binding!!
 
     private lateinit var viewModel : MovieSearchViewModel
-    private var adapter : MovieSearchAdapter? = null
 
+    private var adapter : MovieSearchAdapter? = null
 
     companion object {
         fun newInstance() = MovieSearchFragment()
@@ -57,6 +59,7 @@ class MovieSearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.movieSearchRecyclerView.layoutManager = GridLayoutManager(context, 2)
         binding.movieSearchRecyclerView.adapter = adapter
         viewModel = ViewModelProvider(this).get(MovieSearchViewModel::class.java)
 
@@ -142,7 +145,7 @@ class MovieSearchFragment : Fragment() {
             is AppState.Success -> {
                 binding.loadingLayout.visibility = View.GONE
                 adapter = MovieSearchAdapter(object : OnItemViewClickListener {
-                    override fun onItemViewClick(movie: Films) {
+                    override fun onItemViewClick(movie: Movie) {
                         val manager = activity?.supportFragmentManager
                         manager?.let { manager ->
                             val bundle = Bundle().apply {
@@ -174,9 +177,5 @@ class MovieSearchFragment : Fragment() {
                     .show()
             }
         }
-    }
-
-    interface OnItemViewClickListener {
-        fun onItemViewClick(movie: Films)
     }
 }

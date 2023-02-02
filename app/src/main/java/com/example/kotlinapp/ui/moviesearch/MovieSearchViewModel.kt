@@ -8,6 +8,7 @@ import com.example.kotlinapp.model.dto.MoviesDTO
 import com.example.kotlinapp.model.repository.RemoteDataSource
 import com.example.kotlinapp.model.repository.Repository
 import com.example.kotlinapp.model.repository.RepositoryImpl
+import com.example.kotlinapp.utils.convertMovieDtoToMovie
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -58,6 +59,6 @@ class MovieSearchViewModel(
                return AppState.Error((Throwable(CORRUPTED_DATA)))
             }
         }
-        return AppState.Success(movies)
+        return AppState.Success(convertMovieDtoToMovie(serverResponse))
     }
 }
