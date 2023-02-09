@@ -9,7 +9,6 @@ interface FavouritesDao {
     fun all() : List<MovieEntity>
 
 
-    //OnConflictStrategy.ABORT ??
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(entity: MovieEntity)
 

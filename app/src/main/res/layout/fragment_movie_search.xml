@@ -40,9 +40,10 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.chip.ChipGroup
-
+                    android:id="@+id/chip_group"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:singleSelection="true">
 
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -51,12 +52,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/anime" />
 
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:id="@+id/chip_biographies"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/biographies" />
+<!--                    <com.google.android.material.chip.Chip-->
+<!--                        style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                        android:id="@+id/chip_biographies"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/biographies" />-->
 
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -65,12 +66,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/action" />
 
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:id="@+id/chip_western"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/western" />
+<!--                    <com.google.android.material.chip.Chip-->
+<!--                        style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                        android:id="@+id/chip_western"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/western" />-->
 
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -86,19 +87,19 @@
                         android:layout_height="wrap_content"
                         android:text="@string/detective"  />
 
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:id="@+id/chip_childlike"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/childlike" />
+<!--                    <com.google.android.material.chip.Chip-->
+<!--                        style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                        android:id="@+id/chip_childlike"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/childlike" />-->
 
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:id="@+id/chip_documentary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/documentary"  />
+<!--                    <com.google.android.material.chip.Chip-->
+<!--                        style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                        android:id="@+id/chip_documentary"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/documentary"  />-->
 
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -107,12 +108,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/drama"  />
 
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:id="@+id/chip_games"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/games"  />
+<!--                    <com.google.android.material.chip.Chip-->
+<!--                        style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                        android:id="@+id/chip_games"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/games"  />-->
 
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -128,26 +129,26 @@
                         android:layout_height="wrap_content"
                         android:text="@string/comedy"  />
 
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:id="@+id/chip_concert"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/concert"  />
+<!--                    <com.google.android.material.chip.Chip-->
+<!--                        style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                        android:id="@+id/chip_concert"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/concert"  />-->
 
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:id="@+id/chip_short_film"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/short_film"  />
+<!--                    <com.google.android.material.chip.Chip-->
+<!--                        style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                        android:id="@+id/chip_short_film"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/short_film"  />-->
 
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:id="@+id/chip_crime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/crime"  />
+<!--                    <com.google.android.material.chip.Chip-->
+<!--                        style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                        android:id="@+id/chip_crime"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/crime"  />-->
 
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -156,12 +157,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/melodrama"  />
 
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:id="@+id/chip_music"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/music"  />
+<!--                    <com.google.android.material.chip.Chip-->
+<!--                        style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                        android:id="@+id/chip_music"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/music"  />-->
 
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -177,12 +178,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/musical"  />
 
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:id="@+id/chip_news"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/news"  />
+<!--                    <com.google.android.material.chip.Chip-->
+<!--                        style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                        android:id="@+id/chip_news"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/news"  />-->
 
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -191,12 +192,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/adventures"  />
 
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:id="@+id/chip_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tv"  />
+<!--                    <com.google.android.material.chip.Chip-->
+<!--                        style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                        android:id="@+id/chip_tv"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/tv"  />-->
 
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -212,12 +213,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/sportive"  />
 
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:id="@+id/chip_talk_shows"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/talk_shows"  />
+<!--                    <com.google.android.material.chip.Chip-->
+<!--                        style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                        android:id="@+id/chip_talk_shows"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/talk_shows"  />-->
 
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -240,12 +241,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/fantastic"  />
 
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:id="@+id/chip_noir"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/noir"  />
+<!--                    <com.google.android.material.chip.Chip-->
+<!--                        style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                        android:id="@+id/chip_noir"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/noir"  />-->
 
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -254,12 +255,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/fantasy"  />
 
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:id="@+id/chip_ceremonies"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ceremonies"  />
+<!--                    <com.google.android.material.chip.Chip-->
+<!--                        style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                        android:id="@+id/chip_ceremonies"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/ceremonies"  />-->
 
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>

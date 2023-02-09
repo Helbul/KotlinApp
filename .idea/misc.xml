@@ -5,10 +5,12 @@
       <map>
         <entry key="..\:/Users/79524/KotlinApp/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.121" />
         <entry key="..\:/Users/79524/KotlinApp/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.121" />
+        <entry key="..\:/Users/79524/KotlinApp/app/src/main/res/drawable/ic_baseline_people_alt_24.xml" value="0.2045" />
         <entry key="..\:/Users/79524/KotlinApp/app/src/main/res/layout/activity_main.xml" value="0.265625" />
+        <entry key="..\:/Users/79524/KotlinApp/app/src/main/res/layout/fragment_contacts.xml" value="0.25" />
         <entry key="..\:/Users/79524/KotlinApp/app/src/main/res/layout/fragment_favourites.xml" value="0.2234375" />
         <entry key="..\:/Users/79524/KotlinApp/app/src/main/res/layout/fragment_movie_details.xml" value="0.264" />
-        <entry key="..\:/Users/79524/KotlinApp/app/src/main/res/layout/fragment_movie_search.xml" value="0.4" />
+        <entry key="..\:/Users/79524/KotlinApp/app/src/main/res/layout/fragment_movie_search.xml" value="0.16237799467613132" />
         <entry key="..\:/Users/79524/KotlinApp/app/src/main/res/layout/fragment_settings.xml" value="0.25" />
         <entry key="..\:/Users/79524/KotlinApp/app/src/main/res/layout/item_movie.xml" value="0.2" />
         <entry key="..\:/Users/79524/KotlinApp/app/src/main/res/layout/loading_layout.xml" value="0.1" />

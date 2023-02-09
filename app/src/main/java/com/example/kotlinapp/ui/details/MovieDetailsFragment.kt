@@ -83,12 +83,10 @@ class MovieDetailsFragment : Fragment () {
     private fun renderData(movie: Movie) {
         with(binding) {
             name.text = movie.nameRu
-            rating.rating = movie.rating?.toFloatOrNull() ?: 0.0F
+            rating.rating = movie.rating?: 0.0F
             genre.text = movie.genres[0]// переписать потом
             year.text = movie.year
             poster.load(movie.posterUrlPreview)
-
-            //description.text = movie.
         }
     }
 

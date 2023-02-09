@@ -15,6 +15,6 @@ data class MovieEntity(
     var year: String? = null,
     var countries: ArrayList<String> = arrayListOf(),
     var genres: ArrayList<String> = arrayListOf(),
-    var rating: String? = null,
+    var rating: Float? = null,
     var posterUrlPreview: String? = null
     )
