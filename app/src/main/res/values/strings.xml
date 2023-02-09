@@ -48,6 +48,7 @@
     <string name="title_settings">Настройки</string>
     <string name="title_favourites">Избранное</string>
     <string name="setting_rating9">Отображение только фильмов с рейтигом больше 9.0</string>
+    <string name="contacts">Контакты</string>
 
 
 </resources>

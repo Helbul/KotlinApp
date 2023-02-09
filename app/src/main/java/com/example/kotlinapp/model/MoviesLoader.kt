@@ -3,7 +3,7 @@ package com.example.kotlinapp.model
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.kotlinapp.BuildConfig.MOVIES_API_KEY
-import com.example.kotlinapp.model.dto.MoviesDTO
+import com.example.kotlinapp.model.dto.MoviesTopDTO
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -12,7 +12,7 @@ import java.util.stream.Collectors
 import javax.net.ssl.HttpsURLConnection
 
 object MoviesLoader {
-    fun loadMoviesTop(): MoviesDTO? {
+    fun loadMoviesTop(): MoviesTopDTO? {
         val uri = URL("https://kinopoiskapiunofficial.tech/api/yt")
         lateinit var urlConnection: HttpsURLConnection
 
@@ -30,7 +30,7 @@ object MoviesLoader {
                 getLines(bufferedReader)
             }
 
-            Gson().fromJson(lines, MoviesDTO::class.java)
+            Gson().fromJson(lines, MoviesTopDTO::class.java)
         } catch (e: Exception) {
             e.printStackTrace()
             null

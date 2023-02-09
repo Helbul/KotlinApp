@@ -2,6 +2,7 @@ package com.example.kotlinapp.ui.moviesearch
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapp.AppState
 import com.example.kotlinapp.R
 import com.example.kotlinapp.databinding.FragmentMovieSearchBinding
@@ -20,8 +20,9 @@ import com.example.kotlinapp.model.Movie
 import com.example.kotlinapp.ui.adapters.MovieSearchAdapter
 import com.example.kotlinapp.ui.adapters.OnItemViewClickListener
 import com.example.kotlinapp.ui.details.MovieDetailsFragment
-import com.example.kotlinapp.ui.showSnackbar
+import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_movie_details.view.*
 import kotlinx.android.synthetic.main.fragment_movie_search.*
 
 
@@ -36,7 +37,7 @@ class MovieSearchFragment : Fragment() {
     private var adapter : MovieSearchAdapter? = null
 
     companion object {
-        fun newInstance() = MovieSearchFragment()
+        fun getInstance() = MovieSearchFragment()
     }
 
     override fun onCreateView(
@@ -53,9 +54,6 @@ class MovieSearchFragment : Fragment() {
         adapter?.removeListener()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,7 +64,21 @@ class MovieSearchFragment : Fragment() {
         viewModel.liveData.observe(viewLifecycleOwner
         ) { appState -> renderData(appState) }
 
-        viewModel.getMovie()
+        viewModel.getMoviesTop()
+
+        var id = viewModel.getLiveDataChipId()
+        viewModel.getLiveDataChipId()?.let {
+            binding.chipGroup.check(viewModel.getLiveDataChipId()!!)
+        }
+
+        viewModel.liveDataRating.value?.let {
+            binding.ratingBar.rating = it
+        }
+
+        viewModel.liveDataYear.value?.let {
+            binding.textYear.text = it.toString()
+            binding.seekBar.progress = it
+        }
     }
 
 
@@ -92,26 +104,19 @@ class MovieSearchFragment : Fragment() {
             true
         }
 
-
-        binding.chipAnime
-            .setOnClickListener {
-                binding.root.showSnackbar(R.string.anime)
+        binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
+            if (checkedId == View.NO_ID) {
+                viewModel.setLiveDataChipId(null)
+            } else {
+                viewModel.setLiveDataChipId(checkedId)
             }
-        binding.chipAction
-            .setOnClickListener {
-                binding.root.showSnackbar(R.string.action)
-            }
-        binding.chipAdventures
-            .setOnClickListener {
-                binding.root.showSnackbar(R.string.adventures)
-            }
-        //TO DO
+            //val genre = group.findViewById<Chip>(checkedId).text
+            //viewModel.getMoviesFilter()
+        }
 
 
         val textYear = binding.textYear
         val seekBar = binding.seekBar
-        var year = seekBar.progress
-        textYear.text = "$year"
 
 
         seekBar.setOnSeekBarChangeListener(
@@ -120,8 +125,7 @@ class MovieSearchFragment : Fragment() {
                 override fun onProgressChanged(
                     seekBar: SeekBar, i: Int, b: Boolean
                 ) {
-                    year = i
-                    textYear.text = "$year"
+                    // Do something
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -129,7 +133,9 @@ class MovieSearchFragment : Fragment() {
                 }
 
                 override fun onStopTrackingTouch(seekBar: SeekBar) {
-                    // Do something
+                    textYear.text = seekBar.progress.toString()
+                    viewModel.liveDataYear.value = seekBar.progress
+                    viewModel.getMoviesFilter()
                 }
             })
 
@@ -137,6 +143,8 @@ class MovieSearchFragment : Fragment() {
         val ratingBar = binding.ratingBar
         ratingBar.setOnRatingBarChangeListener { _, rating, _ ->
             Toast.makeText(requireContext(), "$rating", Toast.LENGTH_SHORT).show()
+            viewModel.liveDataRating.value = rating
+            viewModel.getMoviesFilter()
         }
     }
 
@@ -172,7 +180,7 @@ class MovieSearchFragment : Fragment() {
 
                 Snackbar.make(binding.mainView, "Error", Snackbar.LENGTH_LONG)
                     .setAction(getString(R.string.reload)) {
-                        viewModel.getMovie()
+                        viewModel.getMoviesTop()
                     }
                     .show()
             }
