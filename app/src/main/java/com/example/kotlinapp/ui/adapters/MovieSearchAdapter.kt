@@ -49,7 +49,7 @@ class MovieSearchAdapter(private var itemClickListener: OnItemViewClickListener?
         fun bind (movie: Movie) {
             with(itemView) {
                 findViewById<TextView>(R.id.item_name).text = movie.nameRu
-                val ratingFloat = movie.rating?.toFloatOrNull()
+                val ratingFloat = movie.rating
                 ratingFloat?.let {
                     findViewById<RatingBar>(R.id.item_rating).rating = ratingFloat
                 } ?: run {

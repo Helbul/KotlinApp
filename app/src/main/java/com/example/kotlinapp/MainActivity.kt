@@ -14,12 +14,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-//    private val myBroadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-//        override fun onReceive(context: Context?, intent: Intent?) {
-//            binding.root.showSnackbar("BroadcastReceiver - CONNECTIVITY_ACTION")
-//        }
-//    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,17 +36,10 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-//        val intentFilter = IntentFilter()
-//        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
-//        registerReceiver(myBroadcastReceiver, intentFilter)
-
-
     }
 
     override fun onPause() {
         super.onPause()
-//        unregisterReceiver(myBroadcastReceiver)
     }
 
     private fun replaceFragment(fragment : Fragment){

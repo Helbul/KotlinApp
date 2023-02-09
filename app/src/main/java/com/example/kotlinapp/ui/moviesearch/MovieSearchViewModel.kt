@@ -31,13 +31,6 @@ class MovieSearchViewModel(
     private val repositoryImpl: Repository = RepositoryImpl (RemoteDataSource())
 ) : ViewModel() {
 
-//    companion object {
-//        fun getListGenres() : List<Genres> {
-//
-//        }
-//    }
-
-
     fun getMoviesTop() = getMovieFromRemoteSource()
 
     fun getMoviesFilter() = getMoviesFilterFromRemoteSource(
@@ -54,9 +47,7 @@ class MovieSearchViewModel(
     private fun getMoviesFilterFromRemoteSource(year: Int?, genreString: String?, rating: Float?) {
         liveData.value = AppState.Loading
         val ratingInt = rating?.toInt()
-        Log.d("OLGA", "getMoviesFilterFromRemoteSource ratingInt: $ratingInt")
-        Log.d("OLGA", "getMoviesFilterFromRemoteSource year: $year")
-        //TO DO genreString -> genreID
+        //TODO genreString -> genreID
         val genreID : Int? = null
         repositoryImpl.getMoviesFilter(year, genreID, ratingInt, callbackFilter)
     }
@@ -64,7 +55,6 @@ class MovieSearchViewModel(
     private val callbackFilter = object : Callback<MoviesFilterDTO> {
         override fun onResponse(call: Call<MoviesFilterDTO>, response: Response<MoviesFilterDTO>) {
             val serverResponse: MoviesFilterDTO? = response.body()
-            Log.d("OLGA", "callbackFilter onResponse: 111111")
             liveData.postValue(
                 if (response.isSuccessful && serverResponse != null) {
                     checkResponseFilter(serverResponse)
@@ -123,7 +113,6 @@ class MovieSearchViewModel(
                return AppState.Error((Throwable(CORRUPTED_DATA)))
             }
         }
-        Log.d("OLGA", "checkResponseFilter: ++++++")
         return AppState.Success(convertMoviesFilterDtoToMovie(serverResponse))
     }
 
@@ -134,12 +123,4 @@ class MovieSearchViewModel(
     fun getLiveDataChipId() : Int? {
         return liveDataChipId.value
     }
-
-//    private fun searchGenreId (genreString: String?) : Int? {
-//        when (genreString) {
-//            "Аниме" -> return 1
-//
-//            else -> return null
-//        }
-//    }
 }

@@ -19,7 +19,7 @@ fun convertMovieTopDtoToMovie (moviesTopDTO: MoviesTopDTO) : List<Movie> {
                 year = films.year,
                 countries = convertListCountriesToListString(films.countries),
                 genres = convertListGenresToListString(films.genres),
-                rating = films.rating,
+                rating = films.rating?.toFloatOrNull(),
                 posterUrlPreview = films.posterUrlPreview
                     )
             movies.add(movie)
@@ -65,7 +65,7 @@ fun convertMoviesFilterDtoToMovie (moviesFilterDTO: MoviesFilterDTO) : List<Movi
                 year = movie.year.toString(),
                 countries = convertListCountriesToListString(movie.countries),
                 genres = convertListGenresToListString(movie.genres),
-                rating = String.format("%.2f" , movie.ratingKinopoisk),
+                rating = movie.ratingKinopoisk?.toFloat(),
                 posterUrlPreview = movie.posterUrlPreview
             )
             movies.add(movie)

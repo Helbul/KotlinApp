@@ -20,8 +20,6 @@ class SettingsFragment : Fragment() {
     private lateinit var viewModel: SettingsViewModel
     private lateinit var switchRating9: SwitchMaterial
 
-    //private var isRating9: Boolean
-
     companion object {
         fun newInstance() = SettingsFragment()
     }

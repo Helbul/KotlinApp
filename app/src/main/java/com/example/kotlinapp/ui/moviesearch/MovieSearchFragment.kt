@@ -125,11 +125,10 @@ class MovieSearchFragment : Fragment() {
                 override fun onProgressChanged(
                     seekBar: SeekBar, i: Int, b: Boolean
                 ) {
-                    // Do something
+                    textYear.text = seekBar.progress.toString()
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar) {
-                    // Do something
                 }
 
                 override fun onStopTrackingTouch(seekBar: SeekBar) {
