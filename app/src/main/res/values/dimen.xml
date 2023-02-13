@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="main_container_text_size">10sp</dimen>
+    <dimen name="fab_location_icon_size">45dp</dimen>
+    <dimen name="fab_margin">05dp</dimen>
 </resources>
